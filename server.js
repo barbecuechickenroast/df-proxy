@@ -1,7 +1,9 @@
-const express = require('express');
-const { createProxyMiddleware, responseInterceptor } = require('http-proxy-middleware');
+import express from 'express';
+import { createProxyMiddleware, responseInterceptor } from 'http-proxy-middleware';
+
 const app = express();
 const PORT = process.env.PORT || 3000;
+
 app.use('/', createProxyMiddleware({
     target: 'https://deltarunesim.com',
     changeOrigin: true,
@@ -12,6 +14,7 @@ app.use('/', createProxyMiddleware({
             res.removeHeader('x-frame-options');
             res.setHeader('Access-Control-Allow-Origin', '*');
             res.setHeader('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE');
+            
             return responseBuffer;
         })
     }
